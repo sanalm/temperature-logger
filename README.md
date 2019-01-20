@@ -7,11 +7,15 @@ minicom
 
 ### Environment Setup (Ubuntu)
 sudo apt-get install minicom
+
 sudo snap install micropython
+
 sudo apt install python-pip
+
 pip install esptool
 
 git clone https://github.com/espressif/esptool.git
+
 cd esptool/
 
 sudo python setup.py install
@@ -33,6 +37,9 @@ sudo python3 setup.py install
 # Flash firmware
 
 Power reset ESP DEV board
-Hold down button EN and momentariloy press button BOOT
+
+Hold down button EN and momentarily press button BOOT
+
 cd ~/workspace/temperature-logger
+
 sudo ampy -p /dev/ttyUSB0 put dhtRead.py 
