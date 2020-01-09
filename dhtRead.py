@@ -6,8 +6,8 @@ import machine
 
 sensor = DHT22(Pin(15, Pin.IN, Pin.PULL_UP))   # DHT-22 on GPIO 15 (input with internal pull-up resistor)
 blueLed = machine.Pin(2, machine.Pin.OUT)
-ledTimeout = 0.01
-readingTimeout = 4
+ledInterval = 0.01
+readingInterval = 2.5
 
 while True:
     try:
@@ -18,17 +18,15 @@ while True:
             reading = {}
             reading["temperature"] = t
             reading["humidity"] = h
+            reading["interval"] = readingInterval
             encodedReading = ujson.dumps(reading)
             print(encodedReading)
-            # msg = (b'{0:3.1f},{1:3.1f}'.format(t, h))
-            # print(msg)
         else:
             print('Invalid sensor readings.')
     except OSError:
         print('Failed to read sensor.')
     blueLed.value(1)
-    sleep(ledTimeout)
+    sleep(ledInterval)
     blueLed.value(0)
-    sleep(ledTimeout)
-    sleep(readingTimeout)
-    sleep(4)
+    sleep(ledInterval)
+    sleep(readingInterval)
