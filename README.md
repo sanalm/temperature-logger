@@ -19,19 +19,25 @@ git clone https://github.com/espressif/esptool.git
 cd esptool/
 
 sudo python setup.py install
+
 sudo esptool.py --chip esp32 -p /dev/ttyUSB0 erase_flash
 
 ls ~/Downloads/esp32spiram-20190112-v1.9.4-779-g5064df207.bin
+
 sudo esptool.py --chip esp32 -p /dev/ttyUSB0 write_flash -z 0x1000 ~/Downloads/esp32spiram-20190112-v1.9.4-779-g5064df207.bin
+
 sudo esptool.py --chip esp32 -p /dev/ttyUSB0 write_flash -z 0x1000 ~/Downloads/esp32-20190112-v1.9.4-779-g5064df207.bin
 
 sudo minicom -s
-esptool.py --chip esp32 -p /dev/ttyUSB0 erase_flash
+
 esptool.py --chip esp32 -p /dev/ttyUSB0 erase_flash
 
 cd workspace/
+
 git clone https://github.com/adafruit/ampy.git
+
 cd ampy/
+
 sudo python3 setup.py install
 
 # Flash firmware
