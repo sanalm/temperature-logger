@@ -40,12 +40,17 @@ cd ampy/
 
 sudo python3 setup.py install
 
+# To read Flash Id
+
+Issue:
+    esptool.py --chip esp32 -p /dev/ttyUSB0 flash_id
+
+Hold down BOOT button when "Connecting........_____....." appears on the terminal
+
 # Flash firmware
 
 Power reset ESP DEV board
 
-Hold down button EN and momentarily press button BOOT
-
 cd ~/workspace/temperature-logger
 
-sudo ampy -p /dev/ttyUSB0 put dhtRead.py 
+ampy -p /dev/ttyUSB0 put dhtRead.py 
