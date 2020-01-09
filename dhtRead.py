@@ -7,7 +7,7 @@ import machine
 sensor = DHT22(Pin(15, Pin.IN, Pin.PULL_UP))   # DHT-22 on GPIO 15 (input with internal pull-up resistor)
 blueLed = machine.Pin(2, machine.Pin.OUT)
 ledInterval = 0.01
-readingInterval = 2.5
+readingInterval = 1
 
 while True:
     try:
