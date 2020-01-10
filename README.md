@@ -6,19 +6,19 @@ minicom
 
 
 ### Environment Setup (Ubuntu)
-sudo apt-get install minicom
+    sudo apt-get install minicom
 
-sudo snap install micropython
+    sudo snap install micropython
 
-sudo apt install python-pip
+    sudo apt install python-pip
 
-pip install esptool
+    pip install esptool
 
-git clone https://github.com/espressif/esptool.git
+    git clone https://github.com/espressif/esptool.git
 
-cd esptool/
+    cd esptool/
 
-sudo python setup.py install
+sudo     python setup.py install
 
 Whilst pressing the "Boot" button on the esp32
 
@@ -30,29 +30,30 @@ Whilst pressing the "Boot" button on the esp32
 
     sudo esptool.py --chip esp32 -p /dev/ttyUSB0 write_flash -z 0x1000 ~/Downloads/esp32-idf4-20200109-v1.12-44-ge3187b052.bin
 
-sudo minicom -s
+    sudo minicom -s
 
-esptool.py --chip esp32 -p /dev/ttyUSB0 erase_flash
+    esptool.py --chip esp32 -p /dev/ttyUSB0 erase_flash
 
-cd workspace/
+    cd workspace/
 
-git clone https://github.com/adafruit/ampy.git
+    git clone https://github.com/adafruit/ampy.git
 
-cd ampy/
+    cd ampy/
 
-sudo python3 setup.py install
+    sudo python3 setup.py install
 
 # To read Flash Id
 
 Issue:
+
     esptool.py --chip esp32 -p /dev/ttyUSB0 flash_id
 
 Hold down BOOT button when "Connecting........_____....." appears on the terminal
 
 # Flash firmware
 
-Power reset ESP DEV board
+    cd ~/workspace/temperature-logger
+    
+Press "EN" button on ESP32 and then
 
-cd ~/workspace/temperature-logger
-
-ampy -p /dev/ttyUSB0 put dhtRead.py 
+    ampy -p /dev/ttyUSB0 put dhtRead.py 
