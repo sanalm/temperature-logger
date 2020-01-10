@@ -60,7 +60,11 @@ class OTAUpdater:
         OTAUpdater.using_network(ssid, password)
 
         self.download_all_files(self.github_repo + '/contents/' + self.main_dir, latest_version)
-        self.rmtree(self.modulepath(self.main_dir))
+        # self.rmtree(self.modulepath(self.main_dir))
+        if 'backup' in os.listdir(self.module):
+            self.rmtree(self.modulepath('backup'))    
+        os.mkdir(self.modulepath('backup'))
+        os.rename(self.modulepath(self.main_dir), self.modulepath('backup'))
         os.rename(self.modulepath('next/.version_on_reboot'), self.modulepath('next/.version'))
         os.rename(self.modulepath('next'), self.modulepath(self.main_dir))
         print('Update installed (', latest_version, '), will reboot now')
