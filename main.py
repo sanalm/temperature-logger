@@ -1,13 +1,16 @@
 from main.config import Config
 from main.ota_updater import OTAUpdater
+import os
+
+def check_for_update_to_install_during_next_reboot():
+    o = OTAUpdater('https://github.com/sanalm/temperature-logger')
+    o.using_network(ssid, password)
+    o.check_for_update_to_install_during_next_reboot()
 
 def download_and_install_update_if_available():
     o = OTAUpdater('https://github.com/sanalm/temperature-logger')
     o.using_network(ssid, password)
-    o.check_for_update_to_install_during_next_reboot()
-    # o.download_and_install_update_if_available('VM4420671', 'k5qdPdscrybp')
-    # o.download_updates_if_available()
-    # print(o.get_latest_version())
+    o.download_and_install_update_if_available(ssid, password)
 
 def start():
     # your custom code goes here. Something like this: ...
@@ -18,7 +21,10 @@ def start():
 
 
 def boot():
-    download_and_install_update_if_available()
+    if 'next' in os.listdir():
+        download_and_install_update_if_available()
+    else:
+        check_for_update_to_install_during_next_reboot()
     start()
 
 # load configuration for a file
