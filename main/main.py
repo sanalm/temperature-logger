@@ -25,6 +25,8 @@ def boot():
         download_and_install_update_if_available()
     else:
         check_for_update_to_install_during_next_reboot()
+        if 'next' in os.listdir():
+            machine.reset()
     start()
 
 # load configuration for a file
