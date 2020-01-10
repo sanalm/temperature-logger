@@ -55,4 +55,5 @@ Hold down BOOT button when "Connecting........_____....." appears on the termina
     cd ~/workspace/temperature-logger
 
 Momentarily press "EN" button on ESP32 and then
+    
     ampy -p /dev/ttyUSB0 put dhtRead.py 
