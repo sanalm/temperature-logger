@@ -1,3 +1,6 @@
+# Credit: https://github.com/rdehuyss/micropython-ota-updater
+# See: https://www.hackster.io/ronalddehuysser/micropython-ota-updates-and-github-a-match-made-in-heaven-acbbc3
+
 # 1000 x dank aan Evelien die mijn in deze tijden gesteund heeft
 # ohja, en er is ook nog tante suker (Jana Dej.) die graag kinderen wilt maar het zelf nog niet beseft
 
