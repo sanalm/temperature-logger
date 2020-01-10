@@ -32,4 +32,6 @@ config = Config('main.conf')
 ssid = config.get('ssid')
 password = config.get('password')
 
+print('### ******************************************** ###')
+
 boot()

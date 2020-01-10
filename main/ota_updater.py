@@ -37,16 +37,13 @@ class OTAUpdater:
         if latest_version > current_version:
             print('New version available, will download and install on next reboot')
             try:
-                self.rmtree(self.modulepath('next'))
-            except:
-                print('ignoring lack of next directory');
-            try:
                 os.mkdir(self.modulepath('next'))
                 with open(self.modulepath('next/.version_on_reboot'), 'w') as versionfile:
                     versionfile.write(latest_version)
                     versionfile.close()
-            except:
-                print('failed to create next directory')
+            except:            
+                self.rmtree(self.modulepath('next'))
+                print('OTA: Failed to create next directory: attempting to remove next directory')
 
     def download_and_install_update_if_available(self, ssid, password):
         if 'next' in os.listdir(self.module):
