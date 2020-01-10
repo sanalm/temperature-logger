@@ -1,6 +1,7 @@
 from main.config import Config
 from main.ota_updater import OTAUpdater
 import os
+import machine
 
 def check_for_update_to_install_during_next_reboot():
     o = OTAUpdater('https://github.com/sanalm/temperature-logger')
