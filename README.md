@@ -20,13 +20,15 @@ cd esptool/
 
 sudo python setup.py install
 
-sudo esptool.py --chip esp32 -p /dev/ttyUSB0 erase_flash
+Whilst pressing the "Boot" button on the esp32
+
+    sudo esptool.py --chip esp32 -p /dev/ttyUSB0 erase_flash
 
 ls ~/Downloads/esp32spiram-20190112-v1.9.4-779-g5064df207.bin
 
-sudo esptool.py --chip esp32 -p /dev/ttyUSB0 write_flash -z 0x1000 ~/Downloads/esp32spiram-20190112-v1.9.4-779-g5064df207.bin
+Whilst pressing the "Boot" button on the esp32
 
-sudo esptool.py --chip esp32 -p /dev/ttyUSB0 write_flash -z 0x1000 ~/Downloads/esp32-20190112-v1.9.4-779-g5064df207.bin
+    sudo esptool.py --chip esp32 -p /dev/ttyUSB0 write_flash -z 0x1000 ~/Downloads/esp32-idf4-20200109-v1.12-44-ge3187b052.bin
 
 sudo minicom -s
 
