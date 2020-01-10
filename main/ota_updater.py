@@ -203,7 +203,6 @@ class HttpClient:
             host, port = host.split(':', 1)
             port = int(port)
 
-        print('usocket.getaddrinfo ...')
         ai = usocket.getaddrinfo(host, port, 0, usocket.SOCK_STREAM)
         ai = ai[0]
 
