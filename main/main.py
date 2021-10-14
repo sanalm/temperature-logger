@@ -1,5 +1,6 @@
 from main.config import Config
 from main.ota_updater import OTAUpdater
+from main.dhtRead import DHTReader
 import os
 import machine
 
@@ -18,8 +19,11 @@ def start():
     # from main.x import YourProject
     # project = YourProject()
     # ...
-    from main.dhtRead import dhtRead
-
+    r = DHTReader()
+    t = r.measure()
+    r.using_email(from_email, from_password)
+    r.send_email(to_email, email_body, override_mail_from, email_subject, t)
+    r.read_forever()
 
 def boot():
     if 'next' in os.listdir():
@@ -32,6 +36,12 @@ def boot():
 config = Config('main.conf')
 ssid = config.get('ssid')
 password = config.get('password')
+from_email = config.get('from_email')
+from_password = config.get('from_password')
+to_email = config.get('to_email')
+email_body = config.get('email_body')
+override_mail_from = config.get('override_mail_from')
+email_subject = config.get('email_subject')
 
 print('>>> ********************************************** <<<')
 print('<<< ********************************************** >>>')
