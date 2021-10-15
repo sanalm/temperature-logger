@@ -21,8 +21,10 @@ def start():
     # ...
     r = DHTReader()
     t = r.measure()
-    r.using_email(from_email, from_password)
-    r.send_email(to_email, email_body, override_mail_from, email_subject, t)
+    # r.using_email(from_email, from_password)
+    # r.send_email(to_email, email_body, override_mail_from, email_subject, t)
+    r.send_mail({'from': override_mail_from, 'from_email': from_email, 'from_password': from_password, 'to': to_email, 'subject': email_subject, 'text': email_body},
+          {'image_capture' : image_capture, 'name' : 'drive.jpeg'})
     r.read_forever()
 
 def boot():
@@ -42,8 +44,6 @@ to_email = config.get('to_email')
 email_body = config.get('email_body')
 override_mail_from = config.get('override_mail_from')
 email_subject = config.get('email_subject')
-
-print('>>> ********************************************** <<<')
-print('<<< ********************************************** >>>')
+image_capture = config.get('image_capture')
 
 boot()
