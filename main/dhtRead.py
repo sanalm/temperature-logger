@@ -7,7 +7,8 @@ import umail
 import urequests
 import ubinascii
 import urandom as random
-import utime as time
+import ntptime 
+from machine import RTC
 
 class DHTReader:
     def __init__(self):
@@ -16,19 +17,24 @@ class DHTReader:
         self.ledInterval = 0.01
         self.readingInterval = 0.5
         self.bellPress = 0
+        ntptime.settime()  # Synchronise the system time using NTP
 
     def boundary(self):
         return ''.join(random.choice('0123456789ABCDEFGHIJKLMNOUPQRSTUWVXYZ') for i in range(15))
 
     def send_mail(self, email, attachment = None):
-        time_now = time.time()
-        tm = time.localtime(time_now)
         self.bellPress += 1
+        (year, month, mday, week_of_year, hour, minute, second, milisecond)=RTC().datetime()
+        RTC().init((year, month, mday, week_of_year, hour+1, minute, second, milisecond)) # GMT correction. GMT+1
+        time_now = ("{:02d}/{:02d}/{} {:02d}:{:02d}:{:02d}".format(RTC().datetime()[2],RTC().datetime()[1],RTC().datetime()[0],RTC().datetime()[4],RTC().datetime()[5],RTC().datetime()[6]))
+        bell_press_detail = "Bell Press # {0}, {1}\n".format(self.bellPress, time_now)
+
         capture = False    
         if attachment:
             img_buffer = urequests.get(attachment['image_capture'])
             if img_buffer.status_code == 200:
                 b64 = ubinascii.b2a_base64(img_buffer.content)
+                image_html = '<div dir="ltr"><img src="cid:ii_image" alt="drive.jpeg" width="392" height="294"><br></div>'
                 capture = True
 
         smtp = umail.SMTP('smtp.gmail.com', 587, username=email['from_email'], password=email['from_password'])
@@ -36,8 +42,6 @@ class DHTReader:
         smtp.write("From: ({0})\n".format(email['from']))
         smtp.write("To: {0} <{0}>\n".format(email['to']))
         smtp.write("Subject: {0}\n".format(email['subject']))
-        bell_press_detail = "Bell Press # {0}, {1}\n".format(self.bellPress, tm)
-        print(tm)
         if capture:
             text_id = self.boundary()
             attachment_id = self.boundary()
@@ -45,8 +49,7 @@ class DHTReader:
             smtp.write('Content-Type: multipart/mixed;\n boundary="------------{0}"\n'.format(attachment_id))
             smtp.write('--------------{0}\nContent-Type: multipart/alternative;\n boundary="------------{1}"\n\n'.format(attachment_id, text_id))
             # smtp.write('--------------{0}\nContent-Type: text/plain; charset=utf-8; format=flowed\nContent-Transfer-Encoding: 7bit\n\n{1}\n\n--------------{0}--\n\n'.format(text_id, bell_press))
-            msgText = '<div dir="ltr"><img src="cid:ii_image" alt="drive.jpeg" width="392" height="294"><br></div>'
-            smtp.write('--------------{0}\nContent-Type: text/html; charset=utf-8;\n\n{1}\n\n{2}\n\n--------------{0}--\n\n'.format(text_id, bell_press_detail, msgText))
+            smtp.write('--------------{0}\nContent-Type: text/html; charset=utf-8;\n\n{1}\n\n{2}\n\n--------------{0}--\n\n'.format(text_id, bell_press_detail, image_html))
             smtp.write('--------------{0}\nContent-Type: image/jpeg;\n name="{1}"\nContent-Transfer-Encoding: base64\nX-Attachment-Id: ii_image\nContent-ID: <ii_image>\nContent-Disposition: attachment;\n  filename="{1}"\n\n'.format(attachment_id, attachment['name']))
             smtp.write(b64)
             smtp.write('--------------{0}--'.format(attachment_id))
