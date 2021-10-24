@@ -19,7 +19,7 @@ class DHTReader:
         self.readingInterval = 0.5
         self.bellPress = 0
         ntptime.settime()  # Synchronise the system time using NTP
-        self.pin_d18 = machine.Pin(18, machine.Pin.IN, machine.Pin.PULL_UP)
+        self.pin_d18 = machine.Pin(18, machine.Pin.IN, machine.Pin.PULL_DOWN)
 
     def wait_pin_change(self, pin):
         # wait for pin to change value
