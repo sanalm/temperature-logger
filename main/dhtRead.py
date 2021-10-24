@@ -19,7 +19,7 @@ class DHTReader:
         self.readingInterval = 0.5
         self.bellPress = 0
         ntptime.settime()  # Synchronise the system time using NTP
-        self.pin_d18 = machine.Pin(18, machine.Pin.IN, machine.Pin.PULL_DOWN)
+        self.pin_d18 = machine.Pin(18, machine.Pin.IN, machine.Pin.PULL_UP)
 
     def wait_pin_change(self, pin):
         # wait for pin to change value
@@ -111,9 +111,16 @@ class DHTReader:
                 reading["interval"] = self.readingInterval
                 encodedReading = ujson.dumps(reading)
                 print(encodedReading)
+                self.blueLed.value(1)
+                sleep(self.ledInterval)
+                self.blueLed.value(0)
+                sleep(self.ledInterval)
+                sleep(self.readingInterval)
             else:
+                t = 0
                 print('Invalid sensor readings.')
         except OSError:
+            t = 0
             print('Failed to read sensor.')
         self.blueLed.value(1)
         sleep(self.ledInterval)
