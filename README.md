@@ -9,6 +9,12 @@ rshell --buffer-size=30 -p /dev/ttyUSB0
 ### To see what files are written to ESP32 board
 ls /pyboard
 
+e.g. 
+/home/pi/workspace/micropython_vs/temperature-logger> ls /pyboard
+
+main/               umail.py            pymakr.conf        
+boot.py             main.conf           temp.code-workspace
+
 ### To write from Raspberry Pi to ESP32
 cp main/dhtRead.py /pyboard/main/dhtRead.py
 
