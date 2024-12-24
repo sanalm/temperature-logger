@@ -10,6 +10,7 @@ rshell --buffer-size=30 -p /dev/ttyUSB0
 ls /pyboard
 
 e.g. 
+
 /home/pi/workspace/micropython_vs/temperature-logger> ls /pyboard
 
 main/               umail.py            pymakr.conf        
