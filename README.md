@@ -6,7 +6,7 @@ It can also send the temperature by email and OTA upgrade
 
 rshell --buffer-size=30 -p /dev/ttyUSB0
 
-### To see what files are written to esp32 board
+### To see what files are written to ESP32 board
 ls /pyboard
 
 ### To write from Raspberry Pi to ESP32
