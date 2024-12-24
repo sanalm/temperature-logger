@@ -2,7 +2,18 @@
 This repository contains ESP32 firmware to read temperature and humidity from DHT22 on an ESP32 dev board using micropython
 It can also send the temperature by email and OTA upgrade
 
-## Environment
+## Raspberry Pi
+
+rshell --buffer-size=30 -p /dev/ttyUSB0
+
+### To see what files are written to esp32 board
+ls /pyboard
+
+### To write from Raspberry Pi to ESP32
+cp main/dhtRead.py /pyboard/main/dhtRead.py
+
+
+## Ubuntu
 minicom
 
 ### Environment Setup (Ubuntu)
